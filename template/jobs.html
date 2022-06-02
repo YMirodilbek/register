@@ -28,7 +28,7 @@
         {% for i in jobs %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{i.name}}</td>
+                <td><a href="/filter/?job={{i.id}}">{{i.name}}</a></td>
                 <td>{{i.second_first.all.count}}</td>
                 <td><a href='/tahrir/?job={{i.id}}'>Edit</a></td>
                 <td><a href='/ochir/{{i.id}}/'>Delete</a></td>
