@@ -1,0 +1,63 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="{%static 'style.css'%}">
+<center>
+    <div class="Mainclass">
+        <a href="/">Main</a>
+        <a href="/job2/">Job2</a>
+        <a href="/employee2/">Employee2</a>
+        <h1>Employees</h1>
+    </div>
+
+</center>
+<center>
+    {% for i in jobs %}
+        <a href="/filter2/?job={{i.id}}" style="margin:15px">{{ i.name }} ({{i.first_second.all.count}} )</a>
+    {% endfor %}
+<br>
+   
+    
+</center>
+<form action="/add-basejob/" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="job" placeholder="Enter the job" value="{{baseedit.name}}">
+    <input type="hidden"  value="Add">
+</form>
+<table border="1px solid coral">
+    <tr>
+        <td>#</td>
+        <td>Full_name</td>
+        <td>Job</td>
+        <td>Degree</td>
+        <td>Phone</td>
+        </tr>
+    {% for i in employee %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.full_name}}</td>
+        <td>{{i.job.name}}</td>
+        <td>{{i.degree}}</td>
+        <td>{{i.phone}}</td>
+    
+    </tr>
+    {% endfor %}
+    
+    <form action="/add-worker/" method="post">
+        {% csrf_token %}
+        <tr>
+            <td>#</td>
+            <td><input type="text" name="full_name"></td>
+            <td>
+                <select name="job" id="">
+                    {% for i in jobs %}
+                        <option value="{{ i.id }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td><input type="text" name="degree"></td>
+            <td><input type="text" name="phone"></td>
+            <td><input type="submit" value="Qo'shish"></td>
+        </tr>
+    </form>
+</table>
+</html>

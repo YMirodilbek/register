@@ -1,0 +1,46 @@
+{% load static %}
+<html>
+<link rel="stylesheet" href="{%static 'style.css'%}">
+<center>
+    <a href="/main2/">Main</a>
+    <a href="/job2/">Job2</a>
+    <a href="/employee2/">Employee2</a>
+
+   
+    
+</center>
+<form action="/add-basejob/" method="post">
+    {% csrf_token %}
+    <input type="text" name="basejob" placeholder="Enter the job" value="{{baseedit.name}}">
+    <input type="submit" value="Add">
+</form>
+<table border="1px solid coral">
+    <tr>
+        <td>#</td>
+        <td>name</td>
+        <td>Amout</td>
+        <td>Edit</td>
+        <td>Delete</td>
+        </tr>
+    {% for i in jobs %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        {% if baseedit == i %}
+        <td>
+            <form action="/base-edit/{{baseedit.id}}/" method="post">
+                {% csrf_token %}
+                <input type="text" name="baseedit" value="{{baseedit.name}}" autofocus>
+                <input type="submit" value="Edit" style="display:none">
+            </form>
+        </td>
+        {% else %} 
+        <td><a href="/filter2/?job={{i.id}}">{{i.name}}</a></td>
+        {% endif%}
+        <td>{{i.first_second.all.count}}</td>
+        <td><a href="/base-edit/{{i.id}}/"> Edit</a></td>
+        <td><a href="/base-ochir/{{i.id}}/">Delete</a></td>
+    
+    </tr>
+    {% endfor %}
+</table>
+</html>

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<center style="margin: 15px;">
+    <a href="/">Home</a>
+    <a href="/job/">kasblar</a>
+    <a href="/employee/">Xodimlar</a>
+
+    <h1>Jobs Board</h1>
+</center>
+<center>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>amount</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in jobs %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.second_first.all.count}}</td>
+                <td><a href='/tahrir/?job={{i.id}}'>Edit</a></td>
+                <td><a href='/ochir/{{i.id}}/'>Delete</a></td>
+            </tr>
+        {% endfor %}
+        
+        <form {% if job %} action="/tahrir/" {% else %} action="/add-job/" {% endif%} method='post'>
+            {% csrf_token %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><input type="text" name="job" value="{{job.name}}" autofocus></td>
+            <input type="hidden" name="id" value="{{job.id}}">
+            <td></td>
+            <td><input type="submit" {% if job%} value="Tahrir" {% else%} value="Add" {% endif%}></td>
+        </tr>
+    </form>
+    </table>
+ </center>
+</body>
+</html>
