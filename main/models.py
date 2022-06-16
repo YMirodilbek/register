@@ -1,3 +1,5 @@
+from operator import truediv
+from pyexpat import model
 from django.db import models
 
 # Create your models here.
@@ -9,13 +11,20 @@ class Jobs(models.Model):
         return self.name
 
 class Employee1(models.Model):
-    job=models.ForeignKey(Jobs,on_delete=models.SET_NULL,null=True,blank=True, related_name="second_first")
+    STATUS=(
+        ("Junior","Junior"),
+        ("Middle","Middle"),
+        ("Senior","Senior"),
+        ("TeamLead","TeamLead"),
+
+    )
+    job=models.ForeignKey(Jobs,on_delete=models.CASCADE,null=True,blank=True, related_name="second_first")
     full_name = models.CharField(max_length=100)
-    degree = models.CharField(max_length=100)
-    phone= models.CharField(max_length=11)
+    degree = models.CharField(choices = STATUS,max_length=100,default='Junior')
+    phone= models.CharField(max_length=13)
 
     def __str__(self):
-        return self.job.name
+        return self.full_name
 
 
 class BaseJob(models.Model):

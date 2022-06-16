@@ -48,6 +48,8 @@ def Register(request):
 
     return render(request, 'register.html')
 
+
+@login_required
 def Main2(request):
     return render(request,'main2.html')
 
